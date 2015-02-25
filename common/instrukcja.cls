@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{myclass}[2011/12/23 My Class]
+\ProvidesClass{instrukcja}[2011/12/23 Instrukcja dla C-CFD]
 
 %% Article options
 \DeclareOption{10pt}{
@@ -37,6 +37,7 @@
 \RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \RequirePackage{ulem}
 \RequirePackage{xinttools}
+\RequirePackage{amsmath}
 
 \setlength{\parindent}{0pt}
 \topmargin  -15mm

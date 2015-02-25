@@ -1,0 +1,160 @@
+\documentclass{instrukcja}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[OT4]{fontenc}
+
+\begin{document}
+\materialnumber{3}
+\course[Info I]{Informatyka I}
+\material[Lab 3]{Instrukcja 3}
+\author{B. Górecki}
+\materialtitle
+\materialtitle
+
+\section{Instrukcje wejścia/wyjścia}
+
+Praktyczny program powinien mieć możliwość interaktywnej komunikacji z użytkownikiem. Do drukowania informacji dla użytkownika służy najczęściej standardowe wyjście (monitor). W nowym projekcie pakietu MS Visual Studio (poproś prowadzącego, aby pokazał, jak stworzyć {\bf pusty} projekt), napisz program, który wydrukuje tekst {\it Witaj na trzecim laboratorium!}
+\begin{verbatim}
+void main()
+{
+   printf("Witaj na trzecim laboratorium!");
+}
+\end{verbatim}
+Instrukcja {\tt printf} służy do wypisywania tekstu na ekran. Jako argument przyjmuje zmienną typu tekstowego. Do formatowania tekstu służą {\it sekwencje formatujące}, które pozwalają wprowadzić znak nowej linii, tabulacji itp. Umieszczona wewnątrz tekstu sekwencja znaków:
+\begin{itemize}
+\item \textbackslash{}n --- wprowadza znak nowej linii,
+\item \textbackslash{}t --- wprowadzan znak tabulacji.
+\end{itemize}
+
+\subsection*{Ćwiczenia}
+Używając {\bf jednej} instrukcji {\tt printf} oraz odpowiednich sekwencji formatujących, wygeneruj tekst identyczny z poniższym:
+\begin{verbatim}
+To jest pierwsze zdanie w mojej instrukcji.
+To jest tuz po znaku nowej linii.      Zas ten fragment
+                                       oddzielony jest znakiem
+                                       tabulacji!
+Za to w ponizszej linii wszystkie liczby oddzielono tabulatorami.
+5.2    3.14    -7    8
+\end{verbatim}
+\subsection*{Uwaga}
+Oczywiście wprowadzenie długiego tekstu (np. kilku komunikatów dla użytkownika) w jednej instrukcji {\tt printf} jest nonsensem. Spróbuj osiągnąć ten sam efekt, co powyżej, ale tym razem użyj osobnej instrukcji {\tt printf} dla każdego ze zdań. Czy coś cię zaskakuje? Czy nowa instrukcja {\tt printf} wymusza przejście do nowej linii?
+
+W instrukcji {\tt printf} nie używaj polskich znaków diakrytycznych. Da się to zrobić, jednak wymaga pewnych komplikacji i w prostych programach nie jest praktykowane. Jeśli bardzo cię męczy ciekawość, w wolnej chwili poszukaj rozwiązań w książkach, bądź internecie.
+
+\subsection*{Dalej o {\tt printf}}
+Pewne znaki specjalne są w języku C zarezerwowane na potrzeby konkretnych instrukcji. Wiele z nich poznasz wkrótce. Dobrymi przykładami takich znaków są \% czy backslash \textbackslash{}. Nie mogą one być użyte wprost, gdyż mają swoje funkcje w języku C. Jeśli chcesz, by się pojawiły na ekranie, musisz poprzedzić je dodatkowym znakiem \textbackslash{}.
+\begin{itemize}
+\item Dopisz do swojego programu intstrukcję, która wydrukuje następujący tekst:
+\begin{verbatim}
+82% dysku C:\ jest w uzyciu!
+\end{verbatim}
+\end{itemize}
+Program o znaczeniu inżynierskim musi jednak mieć możliwość drukowania na ekran liczb i wyników przeprowadzonych działań.
+\begin{itemize}
+\item Przepisz do funkcji main następujące instrukcje:
+\begin{verbatim}
+int a = 5;
+double c = 8.2;
+
+printf("Zmienna a ma wartosc %d, zas zmienna c = %lf\n", a, c);
+
+c = c + 7.5;
+c -= a;
+a = 1;
+c -= 2*a;
+
+printf("Po dodaniu do zmienej c wartosci 7.5, odjeciu a
+        oraz odjeciu dwukrotnosci zmodyfikowanej
+        wartosci a zmienna c = %lf\n", c);
+\end{verbatim}
+\item Przeanalizuj dokładnie kod. Pojawiają się w nim nowe instrukcje arytmetyczne!
+\item Między wszystkimi instrukcjami arytmetycznymi dodaj po jednej linijce kodu, który wydrukuje na ekran bieżącą wartość przechowywaną w zmiennych a i c.
+\end{itemize}
+Pojawiły się też nowe elementy. Do drukowania wartości przechowywanych w zmiennych służą {\it sekwencje formatujące} lub inaczej {\it specyfikatory formatu}. Są one następujące:
+\begin{itemize}
+\item \%lf --- dla zmiennych typu {\tt double}
+\item \%d --- dla zmiennych typu {\tt int}
+\item \%f --- dla zmiennych typu {\tt float}
+\end{itemize}
+Dodatkowo, dla liczb zmiennoprzecinkowych o ekstremalnie małych, umiarkowanych i ogromnych wartościach użyj poniższych sekwencji i zobacz, jaki będzie efekt działania.
+\begin{itemize}
+\item \%lg, \%e, \%.2lf, \%.4lf (dla zmiennych typu {\tt double}),
+\item \%.3f (dla zmiennych typu {\tt float}).
+\end{itemize}
+\subsection*{Czytanie z klawiatury}
+Instrukcją służącą do czytania danych ze standardowego wejścia (klawiatury) jest instrukcja {\tt scanf}. Przykłady jej użycia wyglądają następująco:
+\begin {verbatim}
+int a;
+scanf("%d", &a);
+
+double c;
+scanf("%lf", &c);
+
+int b, d;
+double g, h;
+scanf("%lf%d%d%lf", &g, &d, &b, &h);
+\end{verbatim}
+{\bf Uwaga:} Zwróć szczególną uwagę na znak \& występujący przed nazwami zmiennych, do których wczytujemy wartości. Znak ten {\bf nigdy} nie występuje w intrukcji {\tt printf}, za to zawsze jest potrzebny w instrukcji {\tt scanf}.\\
+Zauważ również, że używając jednej instrukcji {\tt scanf} możesz wczytać wiele liczb. Sekwencje formatujące nie muszą być oddzielone spacjami, za to wartości muszą być podane z klawiatury w odpowiedniej kolejności - takiej, w jakiej zmienne na liście argumentów, do których te wartości mają trafić.
+\subsection*{Ćwiczenia}
+Napisz prosty kalkulator, który wczyta z klawiatury dwie liczby typu rzeczywistego i wykona na nich dodawanie, odejmowanie, mnożenie i dzielenie. Odejmowanie i dzielenie oczywiście nie jest przemienne. Policz zatem każdą z możliwych różnic czy ilorazów. Wydrukuj wszystkie wyniki na ekran.
+\section{Jeszcze trochę o funkcjach}
+Funkcje nie tylko grupują pewne logicznie wydzielone bloki instrukcji, których używamy wielokrotnie (jak funkcja rysująca ludzika z kółek i kresek, bądź funkcja rysująca tłum z użyciem funkcji {\tt ludzik}). Do tej pory ich deklaracje i definicje wyglądały odpowiednio tak:
+\begin{verbatim}
+void NazwaFunkcji(int argument1, double argument2);
+
+void NazwaFunkcji(int argument1, double argument2)
+{
+    // Tu sie znajduje cialo funkcji
+}
+\end{verbatim}
+
+Funkcje mogą bowiem zwracać wartość. Typ zmiennej, jaką zwracają jest zawsze identyczny z typem funkcji. Nie musi za to być zgodny z typami argumentów, których typy mogą być zupełnie inne. Weźmy dla przykładu funkcję, która przyjmie dwie wartości (jedną typu {\tt double}, drugą typu {\tt float}) i zwróci liczbę całkowitą równą 5, gdy większą wartość ma pierwszy argument lub wartość 10 w przeciwnym razie. Przeanalizujmy odpowiednio deklarację i kod takiej funkcji.
+\begin{verbatim}
+int KtoryWiekszy(double a, float b);
+
+int KtoryWiekszy(double a, float b)
+{
+   int Wynik;
+
+   if(a > b)
+   {
+      Wynik = 5;
+   }
+   else
+   {
+      Wynik = 10;
+   }
+   return Wynik;
+}
+\end{verbatim}
+Zwróć uwagę na instrukcję {\tt return}, która zwraca z funkcji {\bf wartość przechowywaną w konkretnej zmiennej}. To ważne! Funkcja nigdy nie zwraca zmiennej. Zwraca tylko wartość, jaka była w tej zmiennej przechowywana. Ponadto zmienna zadeklarowana w danej funkcji będzie dla programu widoczna {\bf tylko i wyłącznie wewnątrz tej funkcji}, a nie będzie rozpoznawana w innych fragmentach kodu (np. funkcji {\tt main}). Prześledźmy jeszcze kod funkcji {\tt main}, w której występuje wywołanie naszej funkcji.
+\begin{verbatim}
+void main()
+{
+   float c = 8.14;
+   double d = -7.3814;
+   int InnaZmienna = 15;
+   
+   KtoryWiekszy(d, c);
+   InnaZmienna = KtoryWiekszy(d, c);
+   InnaZmienna = KtoryWiekszy(12.5, c);
+}
+\end{verbatim}
+Dodaj do powyższego kodu instrukcje, które po każdym wywołaniu funkcji {\tt KtoryWiekszy} wydrukują wartość aktualnie przechowywaną w zmiennej {\tt InnaZmienna}. Zastanów się, jaki będzie wynik i sprawdź, czy masz rację.
+
+Zmodyfikuj napisany dziś kalkulator tak, aby instrukcje sumowania, odejmowania, mnożenia i dzielenia były realizowane przez osobne funkcje {\tt Sumuj}, {\tt Odejmij}, {\tt Pomnoz}, {\tt Podziel}. Funkcje te musisz napisać samodzielnie.
+
+\section{*Coś na deser}
+Drukowanie tekstów na ekran nie musi sprowadzać się tylko do drukowania napisów, które są na twardo zdefiniowane w kodzie źródłowym lub wartości przechowywanych w zmiennych liczbowych. Język C ma również odpowiedni typ na przechowywanie zmiennych tekstowych, których zawartość może dynamicznie się zmieniać w trakcie wykonywania programu. Spróbuj zrozumieć i skompilować poniższy kod. Więcej szczegółów stanie się dla Ciebie jasnych, gdy omówione zostaną {\it tablice}.
+\begin{verbatim}
+void main()
+{
+   char tekst[] = "To jest moj tekst\n";
+
+   printf(tekst);
+}
+\end{verbatim}
+Istnieje również szereg funkcji, które pozwalają łączyć teksty, porównywać je ze sobą, przekształcać zmienne liczbowe do postaci zmiennych tekstowych. Zainteresowanych odsyłamy do zewnętrznych materiałów poświęconych {\it zmiennym łańcuchowym (ang. string)}.
+
+\end{document}

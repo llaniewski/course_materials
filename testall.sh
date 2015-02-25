@@ -9,7 +9,7 @@ do
 	DIR=$(dirname $i)
 	echo Making $i
 	mkdir -p $AUX/$DIR
-	if ! ((cd $DIR; latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=$AUX/$DIR $(basename $i)) >error.log 2>&1)
+	if ! ((cd $DIR; pdflatex -interaction=nonstopmode -halt-on-error -output-directory=$AUX/$DIR $(basename $i)) >error.log 2>&1)
 	then
 		cat error.log
 		echo Stoped on error at $i
