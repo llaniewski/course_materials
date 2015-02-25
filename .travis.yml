@@ -4,7 +4,7 @@ language: c
 
 install:
   - sudo add-apt-repository -y "ppa:texlive-backports/ppa"
-  - sudo apt-get install --no-install-recommends texlive-base texlive-latex-base texlive-generic-recommended texlive-fonts-recommended texlive-fonts-extra texlive-extra-utils texlive-latex-recommended texlive-latex-extra texinfo lmodern
+  - sudo apt-get install --no-install-recommends texlive-base texlive-latex-base texlive-generic-recommended texlive-fonts-recommended texlive-fonts-extra texlive-extra-utils texlive-latex-recommended texlive-latex-extra texinfo lmodern texlive-lang-polish latex-xcolor
 
 script: ./testall.sh
 
