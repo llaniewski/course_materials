@@ -29,12 +29,14 @@
 %% Load base
 \LoadClass[a4paper,landscape]{article}
 
+
 \RequirePackage{fancyhdr}
 \RequirePackage{graphicx}
 \RequirePackage{multirow}
 \RequirePackage{color}
 \RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \RequirePackage{ulem}
+\RequirePackage{xinttools}
 
 \setlength{\parindent}{0pt}
 \topmargin  -15mm
@@ -48,15 +50,40 @@
 
 
 
-%\global\let\@author\@empty
-%\newcommand{\setauthor}[1]{\def\@author{#1}}
-%\let\author\setauthor %
-%\newcommand{\show@author}{\@author}
+\global\let\@author\@empty
+\global\let\@authorSep\@empty
+\newcommand{\setauthor}[1]{\edef\@author{\@author\@authorSep#1}\def\@authorSep{,}}
+\let\author\setauthor %
+\newcommand{\show@author}{\@author}
+\newcommand{\show@authors}{%
+  \begin{tabular}{rl}Autor:%
+   \xintFor ##1 in {\@author} \do{ & ##1 \\ }%
+  \end{tabular}%
+}
+
+\global\let\@course\@empty
+\global\let\@courseShort\@empty
+\newcommand{\setcourse}[2][aaa]{\def\@courseShort{#1}\def\@course{#2}}
+\let\course\setcourse %
+\newcommand{\show@course}{\@course}
+\newcommand{\show@courseShort}{\@courseShort}
+
+\global\let\@material\@empty
+\global\let\@materialShort\@empty
+\newcommand{\setmaterial}[2][aaa]{\def\@materialShort{#1}\def\@material{#2}}
+\let\material\setmaterial %
+\newcommand{\show@material}{\@material}
+\newcommand{\show@materialShort}{\@materialShort}
+
+\global\let\@materialnumber\@empty
+\newcommand{\setmaterialnumber}[1]{\def\@materialnumber{#1}}
+\let\materialnumber\setmaterialnumber %
+\newcommand{\show@materialnumber}{\@materialnumber}
 
 \fancyhead{}
 \rhead{\begin{tabular}{r} Creative Commons License:\\ Attribution Share Alike\end{tabular}\raisebox{-0.3\height}{\includegraphics[height=0.7cm]{cc_cc_30}\includegraphics[height=0.7cm]{cc_by_30}\includegraphics[height=0.7cm]{cc_sa_30}}}
-\chead{\LARGE\sc Info III: Lab \labnumber}
-\lhead{\begin{tabular}{rl}Autor:&{\it\@author}\\{\it\autortwo}&\end{tabular}}
+\chead{\LARGE\sc \@courseShort: \@materialShort}
+\lhead{\show@authors}
 \rfoot{\thepage}
 \cfoot{}
 \lfoot{\it Wydział Mechaniczny Energetyki i Lotnictwa, Politechnika Warszawska}
@@ -65,7 +92,8 @@
 \newcommand{\red}{\color{Red}}
 \newcommand{\green}{\color{Green}}
 \newcommand{\blue}{\color{Blue}}
-\newcommand{\newtitle}{{\huge\begin{center}{\sc Informatyka III: Instrukcja \labnumber}\\{\it\mytitle}\end{center}}}
+
+\newcommand{\materialtitle}{{\huge\begin{center}{\sc \@course: \@material}\\{\it\mytitle}\end{center}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
