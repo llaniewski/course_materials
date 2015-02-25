@@ -1,0 +1,157 @@
+\documentclass[landscape]{article}
+\usepackage[polish]{babel}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+%\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[OT4]{fontenc}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{ulem}
+
+\setlength{\parindent}{0pt}
+\topmargin  -15mm
+\oddsidemargin  -10mm
+\textwidth  250mm
+\textheight 167mm
+\columnwidth 100mm
+\frenchspacing
+\sloppy
+\setlength{\columnsep}{10mm}
+\fancyhead{}
+\rhead{\begin{tabular}{r} Creative Commons License:\\ Attribution Share
+Alike\end{tabular}\raisebox{-0.3\height}{\includegraphics[height=0.7cm]{../../common/cc_cc_30}\includegraphics[height=0.7cm]{../../common/cc_by_30}\includegraphics[height=0.7cm]{../../common/cc_sa_30}}}
+\chead{\LARGE\sc Info I: Lab \labnumber}
+\lhead{\begin{tabular}{rl}Autor:&{\it\autorone}\\{\it\autortwo}&\end{tabular}}
+\rfoot{\thepage}
+\cfoot{}
+\lfoot{\it Wydział Mechaniczny Energetyki i Lotnictwa, Politechnika Warszawska}
+\twocolumn
+\pagestyle{fancy}
+\newcommand{\red}{\color{Red}}
+\newcommand{\green}{\color{Green}}
+\newcommand{\blue}{\color{Blue}}
+\newcommand{\newtitle}{{\huge\begin{center}{\sc Informatyka I: Instrukcja \labnumber}\\{\it\mytitle}\end{center}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\autorone}{\L{}. \L{}aniewski-Wo\l{}\l{}k}
+\newcommand{\autortwo}{}
+\newcommand{\mytitle}{Podstawy I}
+\newcommand{\labnumber}{1}
+
+\begin{document}
+\newtitle
+
+\section*{Wstęp}
+
+Rozpakuj projekt. Otwórz plik {\tt projekt.sln}. W otwartym projekcie są następujące pliki:
+\begin{enumerate}
+\item {\tt main.cpp} --- główny plik z kodem. Tu piszemy nasz program
+\item {\tt winbgi2.cpp} --- plik z funkcjami graficznymi
+\item {\tt winbgi2.h} --- plik z definicjami funkcji graficznych
+\end{enumerate}
+
+{\bf{\red Pamiętaj:} Często kompiluj projekt i patrz, czy wszystko działa!}
+
+\section{Pierwsze kreski}
+
+Wewnątrz funkcji {\tt main} wpisz:
+\begin{verbatim}
+graphics( 200, 200);
+line( 0, 0, 200, 200);
+line( 200, 200, 0, 0);
+wait();
+\end{verbatim}
+{\bf{\red Uwaga:} Zawsze pamiętaj o średnikach!}
+
+Skompiluj i uruchom projekt. Pierwsza linia tworzy okno grafiki, dwie następne rysują linie, zaś ostatnia czeka z zamknięciem okna na naciśnięcie dowolnego klawisza.
+
+\subsection*{Ćwiczenia}
+Używając funkcji {\tt line(x1,y1,x2,y2)} i {\tt circle(x,y,r)}, wykonaj następujące zadania:
+\begin{itemize}
+
+\item Zidentyfikuj, jak ułożony jest układ współrzędnych (X,Y) w oknie.
+\item Narysuj kwadrat.
+\item Narysuj ludzika.
+\item Narysuj koła olimpijskie.
+\end{itemize}
+
+\section{Zmienne}
+Pewne powtarzające się parametry (jak pozycję, promień, itp), możemy zastąpić zmiennymi. Następnie z nich wyliczyć odpowiednie współrzędne np:
+\begin{verbatim}
+int r,h;
+h = 100;
+r = 50;
+line( 10, 0, 0, h);
+line( 10, 0, 2*r, h);
+circle( 10+r, h, r);
+\end{verbatim}
+Możemy używać wszelkich działań i funkcji matematycznych: {\tt +, -, *, /, sin(), \ldots}.
+
+{\bf {\red Pamiętaj:} Pierwsza linia deklaruje zmienne. Trzeba zadeklarować wszystkie zmienne, których będziesz używać! (szczegóły, na kolejnych zajęciach).}
+
+Zauważ, że wartość zmiennej jest nadpisywana, więc możemy napisać:
+\begin{verbatim}
+int w;
+w = 50;
+circle( 10, w, 10);
+w = w + 20;
+circle( 10, w, 10);
+w = w + 20;
+circle( 10, w, 10);
+w = w + 20;
+circle( 10, w, 10);
+\end{verbatim}
+W efekcie wyświetlą się cztery kółka narysowane koło siebie. Przetestuj.
+\subsection*{Ćwiczenia}
+Każdy program przetestuj dla paru ustawień zmiennych, by zobaczyć czy działa poprawnie.
+\begin{itemize}
+\item Napisz program, który dla zmiennych x,y,s, tworzy okno o rozmiarach x,y i na środku narysuje koło o promieniu s.
+\item Dla zmiennej {\tt d}, narysuj cztery dotykające się koła o średnicy d w prawym górnym rogu okna.
+\item Dla zmiennej {\tt y} narysuje koła olimpijskie w odległości {\tt y} od górnej krawędzi.
+\item Skopiuj poprzedni kod trzy razy i w każdym fragmencie zmodyfikuj wartość zmiennej {\tt y}.
+\end{itemize}
+
+\section{Pętle}
+Pierwszą automatyzacją są pętle. Pętla wykonuje pewną operację, dopóki pewien warunek jest spełniony. Np:
+\begin{verbatim}
+int x;
+x = 0;
+while (x < 200) {
+    line(x,10,x,190);
+    x = x + 10;
+}
+\end{verbatim}
+Taki program będzie wykonywany w następujący sposób:
+\begin{itemize}
+\item wpisujemy $0$ do zmiennej $x$
+\item sprawdzamy, czy $x<200$
+\item rysujemy linię
+\item zwiększamy zmienną $x$ o $10$
+\item i znów: sprawdzamy, czy $x<200$
+\item rysujemy linię
+\item zwiększamy zmienną $x$ o $10$
+\item sprawdzamy, czy $x<200$
+\item rysujemy linię
+\item \ldots
+\item gdy wreszcie $x$ przekroczy $200$, pętla się skończy i program pójdzie dalej.
+\end{itemize}
+
+Ostatecznie program narysuje pionowe kreski dla kolejnych {\tt x} = 0, 10, 20, \ldots.
+
+{\bf {\red Zauważ:} Program nie narysuje linii dla $x=200$, bo komputer najpierw sprawdzi, że $x\not< 200$ i przerwie pętlę.}
+
+
+\subsection*{Ćwiczenia}
+\begin{itemize}
+\item Napisz program, który narysuje kratkę z odstępem {\tt w}
+\item Narysuj rząd stycznych do siebie kół o promieniu $r$, zaczynając od lewej strony. Przemyśl: jeśli $x$ to pozycja środka koła, to jaka wartość powinna jej być przypisana przed pętlą, o ile powinna być zwiększana i jaki warunek musi spełniać, by nie rysować poza oknem?!
+\item Pisząc jedną pętlę w drugiej, zapełnij cały obrazek przylegającymi kółkami.
+\item[*] Czy da się je lepiej upakować?
+\item Narysuj rząd kółek, których promienie zmniejszają się jak $\frac{1}{n}$.
+\end{itemize}
+
+\end{document}
