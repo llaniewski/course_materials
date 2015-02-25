@@ -3,7 +3,8 @@
 language: c
 
 install:
-  - sudo apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended 
+  - sudo add-apt-repository -y "ppa:texlive-backports/ppa"
+  - sudo apt-get install --no-install-recommends texlive-base texlive-latex-base texlive-generic-recommended texlive-fonts-recommended texlive-fonts-extra texlive-extra-utils texlive-latex-recommended texlive-latex-extra texinfo lmodern
 
 script: ./testall.sh
 
