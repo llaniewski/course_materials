@@ -1,0 +1,15 @@
+# Config file for travis continous integration tool
+
+language: c
+
+install:
+  - sudo apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended 
+  - sudo apt-get install chktex
+  - sudo apt-get install latexmk
+
+script: ./makeall
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
