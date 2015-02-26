@@ -4,3 +4,7 @@
 *.fdb_latexmk
 *.fls
 aux
+texlive.profile
+tex/inst
+tex/main
+tex/local
