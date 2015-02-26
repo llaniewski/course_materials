@@ -10,3 +10,11 @@ notifications:
   email:
     on_success: change
     on_failure: change
+
+deploy:
+  provider: releases
+  api_key: "EJe4U5HlGP6uzUh2u2OfqlyAXaDaOR2jOvwinmiMVR14guB1PvnMs5qw807TOQfJYxnydm+wcN6nQTrQUKM6t/MBTXoi+FvMft2xnSRfOaLqLliwMNFf3QnurE88pzxgcAzkUnbhZBIQ7BHBBXgYhkQb+gLA1AXbU/F07V8WjNw="
+  file: aux/info1/info1.pdf
+  skip_cleanup: true
+  on:
+    tags: true
