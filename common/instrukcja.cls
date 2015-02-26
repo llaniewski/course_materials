@@ -87,7 +87,7 @@
 \lhead{\show@authors}
 \rfoot{\thepage}
 \cfoot{}
-\lfoot{\it Wydział Mechaniczny Energetyki i Lotnictwa, Politechnika Warszawska}
+\lfoot{\it Wydzia\l{} Mechaniczny Energetyki i Lotnictwa, Politechnika Warszawska}
 \twocolumn
 \pagestyle{fancy}
 \newcommand{\red}{\color{Red}}
