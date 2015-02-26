@@ -1,0 +1,33 @@
+# texlive.profile written on Fri Sep 12 09:05:31 2014 UTC
+# It will NOT be updated and reflects only the
+# installation profile at installation time.
+selected_scheme scheme-custom
+TEXDIR @PATH@/main
+TEXMFCONFIG @PATH@/local/texmf-config
+TEXMFHOME @PATH@/local/texmf
+TEXMFLOCAL @PATH@/main/texmf-local
+TEXMFSYSCONFIG /@PATH@/main/texmf-config
+TEXMFSYSVAR @PATH@/main/texmf-var
+TEXMFVAR @PATH@/local/texmf-var
+binary_@OS@ 1
+collection-basic 1
+collection-latex 1
+in_place 0
+option_adjustrepo 1
+option_autobackup 1
+option_backupdir tlpkg/backups
+option_desktop_integration 0
+option_doc 0
+option_file_assocs 0
+option_fmt 0
+option_letter 1
+option_menu_integration 1
+option_path 0
+option_post_code 1
+option_src 0
+option_sys_bin /usr/local/bin
+option_sys_info /usr/local/share/info
+option_sys_man /usr/local/share/man
+option_w32_multi_user 0
+option_write18_restricted 1
+portable 0
