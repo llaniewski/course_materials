@@ -1,0 +1,182 @@
+\documentclass[polish]{instrukcja}
+
+%\usepackage[polish]{babel}
+%\usepackage{amsmath}
+%\usepackage{dsfont}
+%\usepackage{graphicx}
+%\usepackage[utf8]{inputenc}
+%\usepackage[OT4]{fontenc}
+%\usepackage{multirow}
+%\usepackage[cm]{fullpage}
+%\usepackage{color}
+%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+%\usepackage{ulem}
+
+%\textsc{\setlength{\parindent}{0pt}
+%\setlength{\parskip}{5pt plus 2pt minus 1 pt}
+%\topmargin  -5mm
+%\evensidemargin 8mm
+%\oddsidemargin  2mm
+%\textwidth  158mm
+%\textheight 230mm
+%\frenchspacing
+%\sloppy
+
+%\newcommand{\red}{\color{Red}}
+%\newcommand{\green}{\color{Green}}
+%\newcommand{\blue}{\color{Blue}}
+%\newcommand{\uline}[1]{\underline{#1}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT4]{fontenc}
+
+
+\course[Info III]{Informatyka III}
+\lab{2}
+\title{Skrypty BASH}
+\author{Ł. Łaniewski-Wołłk}
+\begin{document}
+\maketitle
+
+\section{Materiały}
+
+Materiały do tego laboratorium można znaleźć w katalogu {\tt \textasciitilde{}llaniewski/lab2\_gorne } lub  {\tt \textasciitilde{}llaniewski/lab2\_dolne }  na {\tt info3.meil.pw.edu.pl} ( górne: sala 120, dolne: sala 20B ). 
+
+Pod linuxem należy w terminalu wykonać:
+\begin{verbatim}
+> scp [login]@orange.meil.pw.edu.pl:~llaniewski/lab2_gorne .
+> ./lab2_gorne [login na info3.meil.pw.edu.pl]
+\end{verbatim}
+Następnie wyłączyć terminal i włączyć nowy. Polecenia te zgrają przygotowaną wersję programu ImageMagick i zainstalują, a także utworzą katalog {\tt LAB2} w katalogu domowym, w który zawarte są przykładowe obrazki do obróbki.
+
+\section{BASH: skrypty}
+Pisanie skryptów, polega na spisaniu w pliku komend, które normalnie wpisywalibyśmy w linii poleceń. Taki plik możemy następnie oznaczyć jako wykonywalny komendą {\tt chmod +x plik} i wykonać komendą {\tt ./plik}. Linia poleceń (BASH) służy do uruchomiania programów --- dlatego:\\{\bf każda linijka skryptu wygląda nastepująco:} ,,{\tt {\red program} {\green agumenty}}''.
+
+Przeanalizuj fragment kodu, z zaznaczonymi {\red programami} i {\green opcjami}:
+{\tt\\
+{\red i=1}\\
+while {\red test} {\green \$i -lt 10}\\
+do\\
+{\red echo} {\green \$i}\\
+{\red cp} {\green plik plik\_\$i}\\
+{\red i=}\$({\red expr} {\green \$i + 1})\\
+done\\
+}
+
+Gdy zapamiętamy tą zasadę, łatwo zobaczyć, że:
+\begin{itemize}
+\item {\tt\red i=1} piszemy bez spacji ponieważ wtedy BASH wie, że to przypisanie, a nie program {\tt\red i} z opcjami {\tt\green =} i {\tt\green 1}. 
+\item w wyrażeniu {\tt {\red expr} {\green \$i + 1}}, musimy zachować spacje, żeby program {\tt\red expr} dostał trzy argumenty ,,{\tt\green\$i}'', ,,{\tt\green +}'' i ,,{\tt\green 1}'', a nie jeden ,,{\tt\green i+1}''.
+\item w pętli {\tt while}, nie możemy wpisać ,,{\tt i<10}'', lecz musimy użyć jakiegoś programu. Do wszelkiego rodzaju testów stwożony został program {\tt\red test}. W tym wypadku podajemy mu za argumenty ,,{\tt\green\$i}'', ,,{\tt\green -lt}'' i ,,{\tt\green 10}'', gdzie opcja {\tt\green -lt} oznacza ,,less than''.
+\end{itemize}
+
+\subsection{Przydatne programy}
+Jeśli już wiemy, że każdy skrypt w BASH to seria wywołanych programów, to potrzebne jest nam dużo małych programów, z których będziemy mogli tworzyć skrypty.
+\begin{itemize}
+\item {\tt{\red echo} {\green tekst}} --- Wpisuje {\green tekst} na ekran.
+\item {\tt{\red cat} {\green plik}} --- Wypisuje zawartość {\green plik}u na ekran
+\item {\tt{\red grep} {\green tekst}} --- Czyta z klawiatury tekst i wypisuje tylko linie zawierające {\green tekst}
+\item {\tt{\red grep} {\green tekst pliki}} --- Wyszukuje {\green tekst} w {\green plik}ach
+\item {\tt{\red cd} {\green katalog}} --- Wchodzi do {\green katalogu}
+\item {\tt{\red ls} {\green katalog}} --- Wypisuje zawartość {\green katalog}u na ekran
+\item {\tt{\red cp} {\green pliki katalog}} --- Kopiuje {\green pliki} do {\green katalog}u
+\item {\tt{\red cp} {\green plik1 plik2}} --- Kopiuje plik o nazwie {\green plik1} do pliku o nazwie {\green plik2}
+\item {\tt{\red mv} {\green pliki katalog}} --- Przenosi {\green pliki} do {\green katalog}u
+\item {\tt{\red mv} {\green plik1 plik2}} --- Zmienia nazwę pliku z {\green plik1} na {\green plik2}
+\item {\tt{\red sed} {\green 's/tekst1/tekst2/g'}} --- Czyta z klawiatury tekst i go wypisuje zamieniając ,,{\green tekst1}'' na ,,{\green tekst2}''
+\end{itemize}
+
+\subsection{Przekierowanie wejścia wyjścia}
+Standardowo wszystkie programy czytają z klawiatury i piszą na ekran. Można jednak zarówno pierwsze jak i drugie przekierować.
+\begin{itemize}
+\item {\tt {\red program} {\blue > plik}} --- To co program wypisałby na ekran, zostanie wpisane do {\blue plik}u ({\blue plik} zostanie nadpisany jeśli istnieje)
+\item {\tt {\red program} {\blue >> plik}} --- To co program wypisałby na ekran, zostanie \uline{dopisane} do {\blue plik}u ({\blue plik} zostanie utwożony jeśli nie istniał)
+\item {\tt {\red program} {\blue < plik}} --- Program dostanie zawartość {\blue plik}u, tak jakbyśmy ją wpisali z klawiatury
+\item {\tt {\red program1} {\blue |} {\red program2}} --- To co {\red program1} wypisałby na ekran, zostanie wpisane ,,z klawiatury'' do {\red program2}
+\item {\tt {\blue `}{\red program}{\blue `}} lub {\tt {\blue \$(}{\red program}{\blue )}} --- To co program wypisałby na ekran, zostanie \uline{wklejone} w tym miejscu kodu (patrz przykłady). \uline{Znak {\tt\blue `} jest na klawiaturze przy tyldzie {\tt\textasciitilde{}}.}
+\end{itemize}
+
+Przykłady:
+\begin{itemize}
+\item {\tt echo Tekst {\blue > plik}} --- wypisze ,,Tekst'' do {\blue plik}u ({\blue plik} zostanie nadpisany jeśli istnieje)
+\item {\tt echo Tekst {\blue >> plik}} --- dopisze ,,Tekst'' do {\blue plik}u ({\blue plik} zostanie utwożony jeśli nie istniał)
+\item {\tt grep Tekst {\blue < plik}} --- wyszuka w {\blue plik}u linie zwierające {\green ,,Tekst''} i je wypisze na ekran
+\item {\tt echo Tekst {\blue |} sed 's/st/a/g'} --- Zamieni w ,,Tekst'' każde wystąpienie ,,st'' na ,,a''. Więc wypisze na ekran ,,Teka''.
+\item {\tt echo \$nazwa {\blue |} sed 's/\textbackslash{}.txt/.dat/g'} --- Zastąpi w zmiennej {\tt nazwa} końcówkę {\tt .txt} na {\tt .dat}. \uline{Rezultat wypisze na ekran}.
+\item {\tt echo \$nazwa {\blue |} sed 's/\textbackslash{}.txt/.dat/g'} --- Zastąpi w zmiennej {\tt nazwa} końcówkę {\tt .txt} na {\tt .dat}. \uline{Rezultat wypisze na ekran}.
+\item {\tt nazwa2={\blue \$(}echo \$nazwa {\blue |} sed 's/\textbackslash{}.txt/.dat/g'{\blue )}} --- Jak poprzednio, lecz \uline{rezultat wypisze do zmiennej} {\tt nazwa2}.
+\item {\tt ls katalog {\blue > plik}} --- wypisze zawartość {\green katalog}u do {\blue plik}u ({\blue plik} zostanie nadpisany jeśli istnieje)
+\item {\tt cp {\blue `}ls{\blue `} katalog} albo {\tt cp {\blue \$(}ls{\blue )} katalog} --- skopiuje pliki do {\tt katalog}u według listy zwróconej przez {\tt ls}.
+\item {\tt cp {\blue `}cat plik{\blue `} katalog} bądz {\tt cp {\blue \$(}cat plik{\blue )} katalog} --- skopiuje pliki do {\tt katalog}u według listy zawartej w {\tt plik}u.
+\end{itemize}
+\subsection{Pętle i wyrażenia warunkowe}
+\begin{itemize}
+\item {\tt if {\red program} {\green argumenty}\\
+then\\
+{\red polecenia1}\\
+else\\
+{\red polecenia2}\\
+fi}\\
+Jeśli wykonanie ,,{\red program} {\green argumenty}'' się powiedzie (program zwróci $0$), to wykonane zostaną {\red polecenia1}. W przeciwnym wypadku wykonane zostaną {\red polecenia2}.
+\item {\tt while {\red program} {\green argumenty}\\
+do\\
+{\red polecenia}\\
+done}\\
+Pętla, która będzie wykonywać {\red polecenia}, puki ,,{\red program} {\green argumenty}'' będzie wykonywany z powodzeniem.
+\item {\tt for i in {\green lista}\\
+do\\
+{\red polecenia}\\
+done}\\
+Pętla, która po kolei każdy element {\green list}y wstawi do zmiennej {\tt i}, a następnie wykona {\red polecenia}.
+\end{itemize}
+
+Dla przykładu:\\
+{\tt for i in {\green *.jpg}\\
+do\\
+{\red mv} {\green \$i IMG/a\_\$i} \\
+done}\\
+Przeniesie każdy plik o końcówce {\tt .jpg}, do katalogu {\tt IMG} dodając im przedrostek {\tt a\_} (np.: {\tt obrazek.jpg} zamieni na {\tt IMG/a\_obrazek.jpg}).
+
+\subsection{Ćwiczenia}
+
+Domyślnym edytorem na serwerze {\tt info3 } jest edytor {\tt nano }, dostępny jest teś edytor {\tt vim }. Pierwszy z nich wydaje się prostszy w obsłudze, drugi występuje na prawie każdym komputerze z UNIXem.
+
+\begin{itemize}
+	\item Przy pomocy pętli wypisz na ekran liczby od 0 do 10
+	\item Zmień skrypt, tak aby wypisywał od 0 do podanej jako argument wielkości
+\end{itemize}
+
+
+\section{Obróbka obrazków}
+\subsection{{\tt convert}}
+Głównym programem którego będziemy używać to {\tt convert} z biblioteki ImageMagick. Program ten służy do najróżniejszego typu konwersji i zmiany właściwości obrazów --- lecz potrafi także dodawać elementy do obrazu, a nawet tworzyć obrazy od zera. Najłatwiej zobaczyć jego użycie na przykładach:
+
+{\bf UWAGA: Zanim zaczniesz, skopiuj katalog ze zdjęciami do jakiegoś tymczasowego katalogu!}
+
+\begin{itemize}
+\item {\tt convert plik.gif plik.jpg} --- przekonwertuje plik w formacie GIF na format JPEG
+\item {\tt convert plik1.jpg -resize 50\% plik2.jpg} --- zmniejszy obrazek dwukrotnie
+\item {\tt convert plik1.jpg -resize 100 plik2.jpg} --- zmniejszy obrazek, tak by krótszy wymiar był 100 pikseli
+\item {\tt convert plik1.jpg -resize 100x100 plik2.jpg} --- zmniejszy obrazek tak, by mieścił się w kwadracie 100 na 100 pikseli
+\item {\tt convert plik1.jpg -resize 100x100\textbackslash{}! plik2.jpg} --- zmniejszy obrazek \uline{dokładnie} do rozmiaru 100 na 100 pixeli
+\item {\tt convert -size 320x85 canvas:none -font Bookman-DemiItalic -pointsize 72 -draw "text 25,60 'Magick'"{ }-channel RGBA -blur 0x6 -fill darkred -stroke magenta -draw "text 20,55 'Magick'"{ }fuzzy-magick.jpg} --- stworzy obrazek fuzzy-magick.jpg, z tekstem "Magick"
+\end{itemize}
+Wykonaj powyższe operacja, sprawdź efekty.
+
+
+\subsection*{Ćwiczenia}
+Napisz skrypt który:
+\begin{itemize}
+
+\item Zmniejszy wszystkie pliki {\tt jpg}
+\item Napisz skrypt który: Zmniejszy wszystkie pliki {\tt jpg} umieszczając je w innym katalogu
+\item Napisz skrypt który: Skonwertuje wszystkie pliki {\tt jpg} na {\tt gif}, dodając końcówkę: {\tt plik.jpg $\rightarrow$ plik.jpg.gif}
+\item Napisz skrypt który: Skonwertuje wszystkie pliki {\tt jpg} na {\tt gif}, zamieniając końcówkę {\tt plik.jpg $\rightarrow$ plik.gif}
+\item Na każde zdjęcie naniesie tekst używając {\tt -pointsize {\green rozmiar} -draw "{}text {\green x},{\green y} '{\green Tekst}'"{}}
+\item Na każde zdjęcie naniesie aktualną datę (komenda {\tt date})
+\item Na każde zdjęcie naniesie datę utworzenia tego zdjęcia (można ją wyciągnąć przy pomocy {\tt stat -c \%y plik})
+\item Zmniejszy wszystkie obrazki z katalogu {\tt drop1} i połączy je w animację przy pomocy {\tt convert *.jpg animacja.gif}
+\end{itemize}
+
+
+\end{document}
