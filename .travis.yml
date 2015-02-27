@@ -11,4 +11,4 @@ deploy:
     secure: 2SlVRh4hC2E+hNjDtqb0CUOilRbv+MU5CD9RN95It6TvZUpgTObYbAVRQdgtdHHiq5P6uy1K1lhk2UvC1B3BSGIXATHlrUnhF+uYj/BcnLTb3/GFcylF06Gp0eInV05R+4i0f8reU+M7FFkfSXNtp8BoVIUAoxqYqsPEemL2VsA=
   file: info1/info1.pdf
   on:
-    repo: ccfd/course_materials
+    tags: true
