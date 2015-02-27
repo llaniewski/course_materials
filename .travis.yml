@@ -1,20 +1,14 @@
-# Config file for travis continous integration tool
-
 language: c
-
 install: ./install-tex.sh
-
 script: ./make.sh
-
 notifications:
   email:
     on_success: change
     on_failure: change
-
 deploy:
   provider: releases
-  api_key: "EJe4U5HlGP6uzUh2u2OfqlyAXaDaOR2jOvwinmiMVR14guB1PvnMs5qw807TOQfJYxnydm+wcN6nQTrQUKM6t/MBTXoi+FvMft2xnSRfOaLqLliwMNFf3QnurE88pzxgcAzkUnbhZBIQ7BHBBXgYhkQb+gLA1AXbU/F07V8WjNw="
-  file: aux/info1/info1.pdf
-  skip_cleanup: true
+  api_key:
+    secure: 2SlVRh4hC2E+hNjDtqb0CUOilRbv+MU5CD9RN95It6TvZUpgTObYbAVRQdgtdHHiq5P6uy1K1lhk2UvC1B3BSGIXATHlrUnhF+uYj/BcnLTb3/GFcylF06Gp0eInV05R+4i0f8reU+M7FFkfSXNtp8BoVIUAoxqYqsPEemL2VsA=
+  file: info1/info1.pdf
   on:
-    tags: true
+    repo: ccfd/course_materials
