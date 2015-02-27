@@ -25,7 +25,6 @@ do
 		echo Stoped on error at $i
 		exit -1;
 	else
-		echo "-$AUX/$DIR/$PDF-"
 		if [ -f "$AUX/$DIR/$PDF" ]
 		then
 			mv $AUX/$DIR/$PDF pdf
