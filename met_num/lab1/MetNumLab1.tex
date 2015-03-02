@@ -21,13 +21,14 @@
 Rozwiązanie wielu problemów inżynierskich wymaga rozwiązania układów równań nieliniowych (wśród których choć jedno równanie jest równaniem nieliniowym). Dzisiejsze laboratorium będzie poświęcone metodzie Newtona-Raphsona pozwalającej rozwiązywać takie zagadnienia. W celu przypomnienia podstawowych zagadnień zaczniemy od problemu liniowego wypływającego ze statyki mechanizmu po uwolnieniu poszczególnych członów od więzów. Umiejętność rozwiązania zagadnienia liniowego jest nieodzownym elementem implementacji metody Newtona-Raphsona.
 
 \section{Problem liniowy}
-Rozważmy mechanizm pokazany na Rysunku 1 i uwolnijmy ten układ od więzów, uwydatniając siły w parach kinematycznych. Znana jest geometria układu oraz ciężary poszczególnych członów wynoszące $G_{AB}=25$, $G_{BC}=16$ oraz $G_{CD}=53$.
-
-\begin{figure}[h]
+\begin{figure*}[h]\label{uklad1}
 \centering
 \includegraphics[width=0.9\textwidth]{mechanizm.png}
 \caption[c]{Wyjściowy układ mechaniczny (po lewej) oraz poszczególne człony uwolnione od więzów (po prawej).}
-\end{figure}
+\end{figure*}
+Rozważmy mechanizm pokazany na Rysunku~\ref{uklad1}
+(strona~\pageref{uklad1}) i uwolnijmy ten układ od więzów, uwydatniając siły w parach kinematycznych. Znana jest geometria układu oraz ciężary poszczególnych członów wynoszące $G_{AB}=25$, $G_{BC}=16$ oraz $G_{CD}=53$.
+
 
 Dla układu o zadanej na rysunku geometrii oraz ciężarach członów podanych powyżej równania równowagi wyglądają następująco:
 \begin{displaymath}
