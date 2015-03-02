@@ -21,4 +21,11 @@ do
 	F=pdf/$F.pdf
 	echo "    - $F" >> n.travis.yml
 done
-mv n.travis.yml .travis.yml
+
+if diff n.travis.yml .travis.yml >/dev/null
+then
+	rm n.travis.yml
+else
+	echo Updating travis
+	mv n.travis.yml .travis.yml
+fi
