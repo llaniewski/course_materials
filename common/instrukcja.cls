@@ -105,4 +105,14 @@
 
 \newtheorem{zad}{Zadanie}
 \newcommand{\gray}{\color{Gray}}
+
+\newcommand{\R}{\mathds{R}}
+\newcommand{\pr}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\rr}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ppr}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\prr}[2]{\frac{\partial^2}{\partial #1\partial #2}}
+\newcommand{\rpr}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\rrr}[3]{\frac{\partial^2 #1}{\partial #2\partial #3}}
+
+
 \endinput
