@@ -13,19 +13,19 @@ deploy:
   on:
     tags: true
   file:
-    - pdf/Info3Lab01.pdf
-    - pdf/Info3Lab2.pdf
-    - pdf/Info1Lab08.pdf
-    - pdf/Info1Lab09.pdf
-    - pdf/Info1Lab03.pdf
+    - pdf/Info1.pdf
     - pdf/Info1Lab01.pdf
-    - pdf/Info1Lab07.pdf
-    - pdf/Info1Lab042.pdf
+    - pdf/Info1Lab02.pdf
+    - pdf/Info1Lab03.pdf
     - pdf/Info1Lab04.pdf
-    - pdf/Info1Lab06.pdf
+    - pdf/Info1Lab042.pdf
     - pdf/Info1Lab05.pdf
     - pdf/Info1Lab052.pdf
-    - pdf/Info1Lab02.pdf
-    - pdf/Info1.pdf
+    - pdf/Info1Lab06.pdf
+    - pdf/Info1Lab07.pdf
+    - pdf/Info1Lab08.pdf
+    - pdf/Info1Lab09.pdf
+    - pdf/Info3Lab01.pdf
+    - pdf/Info3Lab2.pdf
     - pdf/MetNumLab1.pdf
     - pdf/MetNumLab2.pdf

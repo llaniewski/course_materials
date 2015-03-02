@@ -2,8 +2,20 @@
 
 SCRDIR=$PWD/$(dirname $0)
 
+find -name "*.tex" -not -path "./tex/*" | sort | sed 's/^[.][/]//' >.list1
+git ls-files | grep 'tex$' | sort >.list2
+ALL=$(cat .list1)
+GITALL=$(cat .list2)
+if ! diff .list1 .list2 >.list_diff
+then
+	echo "-----------------------------------------------"
+	echo "WARNING: Difference between git and ls"
+	echo "         Maybe not all tex files are commited: "
+	cat .list_diff
+	echo "-----------------------------------------------"
+fi
+rm .list1 .list2 .list_diff
 
-ALL=$(find -name "*.tex" -not -path "./tex/*")
 for i in $ALL
 do
 	if ! $SCRDIR/textify.sh $i
@@ -13,8 +25,9 @@ do
 	fi
 done
 
+GITALL=$(git ls-files | grep 'tex$')
 cat .travis.yml | sed '/file:/q' > n.travis.yml
-for i in $ALL
+for i in $GITALL
 do
 	F=$(basename $i)
 	F=${F%.*}
@@ -29,3 +42,5 @@ else
 	echo Updating travis
 	mv n.travis.yml .travis.yml
 fi
+
+
