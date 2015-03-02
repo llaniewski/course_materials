@@ -1,0 +1,63 @@
+\documentclass{instrukcja}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[OT4]{fontenc}
+
+%\usepackage{dsfont}
+%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+%\usepackage[justification=centering]{caption}
+
+\begin{document}
+
+\materialnumber{4}
+\course[MetNum]{Metody Numeryczne}
+\material[Lab 4]{Instrukcja 4}
+\author{Ł. Łaniewski-Wołłk}
+%Układy równań nieliniowych
+\materialtitle
+%\title{Macierze jako funkcje}
+
+Łatwo zauważyć, że w metodzie gradientów sprzężonych nie używamy elementów macierzy, lecz tylko możliwości mnożenia przez nią. Tzn: nie musimy wiedzieć jak wygląda $A$, wystarczy że dla danego wektora $x$ potrafimy obliczyć $Ax$.
+
+Na tych laboratoriach wykorzystamy tą wiedzę by dodatkowo przyspieszyć program i zmniejszyć użycie pamięci.
+
+\section{Przygotowanie}
+
+By nie pomylić się w następnych krokach, należy pierw dobrze ''posprzątać'' kod. 
+\begin{zad} Wydziel wszystkie elementy iteracji metody gradientów sprzężonych do oddzielnych pętli. Tak by $r=Ax$, $r=b-r$, etc. były oddzielnymi kawałkami kodu\end{zad}
+\begin{zad} Wydziel z funkcji {\tt Solve} część odpowiedzialną za mnożenie przez $A$: {\tt Mult(double** A, double*x, double* r)} i preconditioner diagonalny: {\tt Precond(double** A, double*r, double* p)} --- Zauważ że mnożenie przez macierz $A$ występuje co najmniej dwa razy w iteracji.\end{zad}
+
+Na tym etapie w funkcji {\tt Solve} nie powinny występować nigdzie elementy macierzy $A$.
+
+\begin{zad} Przenieś zmienne {\tt fix}, {\tt thick} do zmiennych globalnych\end{zad}
+
+\begin{zad}Skopiuj funkcję {\tt Mult} pod nazwą {\tt SMult}\end{zad}
+
+\section{Element po elemencie}
+W funkcji {\tt SMult} będziemy chcieli napisać funkcję mnożącą przez macierz sztywności nie używając samej macierzy $S$. Chcemy wykonać operację $r=Sx$, tzn: $r_i = \sum_jS_{ij}x_j$.
+
+Jeśli dodamy do elementu $S_{1,2}$ liczbę $4$, to do $r_1$ musimy dodać $4x_2$.
+
+Analogicznie jeśli dodamy do elementu $S_{ij}$ liczbę $w$, to tak jak byśmy dodali do elementu $r_i$ liczbę $w\cdot x_j$. Jako, że macierz $S$ konstruujemy właśnie przez dodawanie do kolejnych jej elementów, możemy całość mnożenia przez nią zapisać w powyższej postaci.
+
+\begin{zad}Przekopiuj fragment kodu funkcji {\tt main} odpowiedzialny za konstrukcję macierzy $S$. Następnie, każde wystąpienie\\
+{\tt S[i,j] += cos;}\\
+zamień na:\\
+{\tt r[i] += cos * x[j];}\end{zad}
+
+Co z częścią, która zamieniała wybrane wiersze na wiersze macierzy diagonalnej? Jeśli w macierzy $S$ $i$-ty wiersz zamienimy na same zera i $1$ na przekątnej, to tak jak byśmy postawili $r_i = x_i$.
+
+\begin{zad}Zamień pętlę wycinającą $i$ty wiersz, na {\tt r[i]=x[i]}\end{zad}
+\begin{zad}Przetestuj kod z {\tt SMult} zamiast {\tt Mult}\end{zad}
+\begin{zad}Napisz trywialny preconditioner {\tt IPrecond(double ** A, double * r, double * p)}, przepisujący $p=r$.\end{zad}
+\begin{zad}Popraw kod zauważając, że ani {\tt SMult} ani {\tt IPrecond} nie potrzebują brać {\tt A} za argument.\end{zad}
+
+\section{A teraz na poważnie}
+
+Na tym etapie nigdzie w kodzie nie potrzebujemy macierzy $S$. Możemy ją całkowicie wyeliminować. Funkcję {\tt Solve} będziemy chcieli jednak używać dla różnych macierzy --- dlatego jako argument, zamiast macierzy {\tt double ** A} będziemy przekazywać funkcję mnożenia {\tt void (*mult)(double *, double *)}. Tzn: nagłówek funkcji {\tt Solve} będzie następujący:\\
+{\tt void Solve(int n, void (*mult)(double *, double *), double *b, double *x)}\\
+A w miejscu mnożenia przez macierz $r=Ax$ będziemy mieli {\tt mult(x,r);}. Teraz funkcję {\tt Solve} będziemy wywoływać przekazując jej konkretną funkcję mnożącą: {\tt Solve(n, SMult, F, d);}.
+
+\section{Równoległość}
+
+\end{document}
