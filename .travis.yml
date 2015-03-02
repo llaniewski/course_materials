@@ -10,6 +10,22 @@ deploy:
   api_key:
     secure: 2SlVRh4hC2E+hNjDtqb0CUOilRbv+MU5CD9RN95It6TvZUpgTObYbAVRQdgtdHHiq5P6uy1K1lhk2UvC1B3BSGIXATHlrUnhF+uYj/BcnLTb3/GFcylF06Gp0eInV05R+4i0f8reU+M7FFkfSXNtp8BoVIUAoxqYqsPEemL2VsA=
   skip_cleanup: true
-  file: pdf/info1.pdf
   on:
     tags: true
+  file:
+    - pdf/Info3Lab01.pdf
+    - pdf/Info3Lab2.pdf
+    - pdf/Info1Lab08.pdf
+    - pdf/Info1Lab09.pdf
+    - pdf/Info1Lab03.pdf
+    - pdf/Info1Lab01.pdf
+    - pdf/Info1Lab07.pdf
+    - pdf/Info1Lab042.pdf
+    - pdf/Info1Lab04.pdf
+    - pdf/Info1Lab06.pdf
+    - pdf/Info1Lab05.pdf
+    - pdf/Info1Lab052.pdf
+    - pdf/Info1Lab02.pdf
+    - pdf/Info1.pdf
+    - pdf/MetNumLab1.pdf
+    - pdf/Lab2.pdf

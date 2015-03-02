@@ -12,3 +12,13 @@ do
 		exit -1;
 	fi
 done
+
+cat .travis.yml | sed '/file:/q' > n.travis.yml
+for i in $ALL
+do
+	F=$(basename $i)
+	F=${F%.*}
+	F=pdf/$F.pdf
+	echo "    - $F" >> n.travis.yml
+done
+mv n.travis.yml .travis.yml
