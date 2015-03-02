@@ -103,4 +103,6 @@
 \newcommand{\mytitle}{}
 \newcommand{\labnumber}{1}
 
+\newtheorem{zad}{Zadanie}
+\newcommand{\gray}{\color{Gray}}
 \endinput
