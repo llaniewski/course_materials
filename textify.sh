@@ -30,21 +30,21 @@ PDF=${FILE%.*}.pdf
 OUT=$SCRDIR/pdf/$PDF
 if [ $OUT -nt $IN ]
 then
-	echo Omitting $IN
+	echo "Omitting $IN"
 	exit 0;
 fi
-echo Textify $IN
+	echo "Textify  $IN"
 mkdir -p $AUX/$DIR
 
 cd $DIR
 
-#echo AUX: $AUX
-#echo DIR: $DIR
-#echo TEX: $TEX
+#echo AUX : $AUX
+#echo DIR : $DIR
+#echo TEX : $TEX
 #echo FILE: $FILE
-#echo PDF: $PDF
-#echo OUT: $OUT
-#echo IN: $IN
+#echo PDF : $PDF
+#echo OUT : $OUT
+#echo IN  : $IN
 
 	if ! $TEX -interaction=nonstopmode -halt-on-error -output-directory=$AUX/$DIR $FILE >error.log 2>&1
 	then
