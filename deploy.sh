@@ -9,6 +9,7 @@ fi
 if test "$TRAVIS_BRANCH" == "master"
 then
 	echo Deploying to GitHub Pages ...
+	git fetch origin
         git checkout --track -b origin/gh-pages
 	git pull
 	git add pdf/*.pdf
