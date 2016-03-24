@@ -26,7 +26,7 @@ then
 	git config user.name "$name"
 	git add pdf/*.pdf
 	git commit -m "autodeploy to pages"
-#	git push
+	git push
 	popd
 	rm -fr deploy
 else
