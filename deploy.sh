@@ -9,8 +9,7 @@ fi
 if test "$TRAVIS_BRANCH" == "master"
 then
 	echo Deploying to GitHub Pages ...
-
-	git checkout gh-pages
+        git checkout --track -b origin/gh-pages
 	git pull
 	git add pdf/*.pdf
 	git commit -m "autodeploy to pages"
