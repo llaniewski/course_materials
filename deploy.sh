@@ -6,15 +6,24 @@ then
 	echo I\'m not on travis-ci
 fi
 
+set -e
 if test "$TRAVIS_BRANCH" == "master"
 then
+	if test -z "$GH_TOKEN"
+	then
+		echo I don\'t have the GH token!
+		exit -1
+	fi
 	echo Deploying to GitHub Pages ...
-	git fetch origin
-        git checkout --track -b origin/gh-pages
-	git pull
+	echo Cloning pages
+	git clone --depth 1 --branch gh-pages https://$GH_TOKEN@github.com/ccfd/course_materials.git deploy
+	cp pdf/*.pdf deploy/pdf/
+	pushd deploy
 	git add pdf/*.pdf
 	git commit -m "autodeploy to pages"
 	git push
+	popd
+	rm -fr deploy
 else
 	echo Not in master branch. I won\'t upload to GitHub Pages
 fi

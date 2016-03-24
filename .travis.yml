@@ -1,4 +1,7 @@
 language: c
+env:
+  global:
+  - secure: LnrONjgFVPth66z3HPvgYcovDYFmsex1d4ngjNJiqVGJQH0HcIz/ZJ68q6huvx/Ufxljf2Iym1M/zfpztvuYB8tPWu7i6mKAdUOoyBN/yLOWo1pVXqXA6tiSFtG1EONylVBT/6I6UoGVxFe0r+P+HXnhiNLKSquaj18Prq1V7LU=
 install: ./install-tex.sh
 script: ./make.sh
 notifications:
