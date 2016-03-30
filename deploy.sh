@@ -17,16 +17,27 @@ then
 	echo Deploying to GitHub Pages ...
 	name=$(git --no-pager show -s --format="%aN")
 	email=$(git --no-pager show -s --format="%ae")
+	git --no-pager show -s --format="%s" >.msg
 	echo Today\'s commit belongs to "$name" \("$email"\)
+	echo Commit message:
+	if ! test -f .msg
+	then
+		echo No commit message file
+		exit -1
+	fi
+	cat .msg
 	echo Cloning pages
-	git clone --depth 1 --branch gh-pages https://$GH_TOKEN@github.com/ccfd/course_materials.git deploy
+	git clone --depth 1 --branch pages-base https://$GH_TOKEN@github.com/ccfd/course_materials.git deploy
+	mkdir -p deploy/pdf/
 	cp pdf/*.pdf deploy/pdf/
 	pushd deploy
         git config user.email "$email"
 	git config user.name "$name"
+	git branch -f gh-pages pages-base
+	git checkout gh-pages
 	git add pdf/*.pdf
-	git commit -m "autodeploy to pages"
-	git push
+	git commit -F ../.msg
+	git push --force --set-upstream origin gh-pages
 	popd
 	rm -fr deploy
 else
